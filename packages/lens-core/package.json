@@ -1,0 +1,49 @@
+{
+  "name": "@lens-journal/core",
+  "version": "0.1.0",
+  "description": "Shared logic for Lens Journal: EXIF extraction, photo hashing, slug + MDX generation, config loading and content validation.",
+  "license": "MIT",
+  "type": "module",
+  "keywords": ["lens-journal", "exif", "mdx", "photography", "astro"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lens-journal/lens-journal.git",
+    "directory": "packages/lens-core"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rimraf dist .turbo"
+  },
+  "dependencies": {
+    "exifr": "^7.1.3",
+    "fast-glob": "^3.3.3",
+    "fs-extra": "^11.2.0",
+    "jiti": "^2.4.2",
+    "sharp": "^0.33.5",
+    "yaml": "^2.6.1",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.13.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

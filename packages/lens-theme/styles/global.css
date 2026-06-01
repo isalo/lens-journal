@@ -1,0 +1,73 @@
+/*
+ * Lens Journal base styles. Import after installing the Tailwind preset:
+ *   @import '@lens-journal/theme/styles/global.css';
+ * Font packages (@fontsource-variable/inter, /newsreader) are optional and
+ * imported by the app if desired.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    @apply dark:bg-night dark:text-paper-soft;
+  }
+
+  ::selection {
+    @apply bg-accent/20;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-content {
+    @apply mx-auto w-full max-w-content px-5 sm:px-8;
+  }
+
+  .container-prose {
+    @apply mx-auto w-full max-w-prose px-5 sm:px-6;
+  }
+
+  .link-underline {
+    @apply relative no-underline transition-colors;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: background-size 0.3s ease;
+  }
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+
+  .meta-label {
+    @apply text-[0.7rem] font-medium uppercase tracking-[0.14em] text-ink-muted dark:text-paper-soft/50;
+  }
+}

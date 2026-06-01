@@ -1,0 +1,37 @@
+{
+  "name": "lens-cli",
+  "version": "0.1.0",
+  "description": "The `lens` command — import EXIF-aware photos and manage your Lens Journal from the terminal.",
+  "license": "MIT",
+  "type": "module",
+  "keywords": ["lens-journal", "cli", "photography", "exif", "astro"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lens-journal/lens-journal.git",
+    "directory": "packages/lens-cli"
+  },
+  "bin": {
+    "lens": "dist/index.js"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vitest run --passWithNoTests",
+    "clean": "rimraf dist .turbo"
+  },
+  "dependencies": {
+    "@lens-journal/core": "workspace:*",
+    "commander": "^13.0.0",
+    "ora": "^8.1.1",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

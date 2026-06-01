@@ -1,12 +1,20 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
 # build output
 dist/
 .output/
-
-# dependencies
-node_modules/
+*.tsbuildinfo
 
 # astro
 .astro/
+
+# turbo
+.turbo/
+
+# lens cli cache
+.lens/cache/
 
 # environment
 .env
