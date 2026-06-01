@@ -1,0 +1,26 @@
+---
+import { getGalleryPhotos } from '@lib/entries';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageIntro from '@components/ui/PageIntro.astro';
+import GalleryGrid from '@components/GalleryGrid.astro';
+
+const photos = await getGalleryPhotos();
+---
+
+<BaseLayout
+  title="Gallery"
+  description="Every photograph in the journal, in one place."
+>
+  <PageIntro
+    title="Gallery"
+    description="A visual index of every photograph across the journal."
+    count={photos.length}
+    countLabel="photos"
+  />
+
+  {photos.length > 0 ? (
+    <GalleryGrid items={photos} />
+  ) : (
+    <p class="text-ink-muted dark:text-paper-soft/60">No photographs yet.</p>
+  )}
+</BaseLayout>

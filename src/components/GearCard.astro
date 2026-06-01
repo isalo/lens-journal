@@ -1,0 +1,27 @@
+---
+import type { GearGroup } from '@types';
+import PhotoFrame from '@components/photo/PhotoFrame.astro';
+
+interface Props {
+  group: GearGroup;
+  basePath: string;
+}
+
+const { group, basePath } = Astro.props;
+const cover = group.entries.find((e) => e.photo)?.photo ?? null;
+---
+
+<a href={`${basePath}/${group.slug}`} class="group block animate-fade-up">
+  <div class="overflow-hidden rounded-2xl">
+    <PhotoFrame
+      photo={cover}
+      alt={group.label}
+      ratio="aspect-[4/3]"
+      class="transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+    />
+  </div>
+  <div class="mt-3 flex items-baseline justify-between gap-3">
+    <h3 class="font-serif text-lg tracking-tight">{group.label}</h3>
+    <span class="meta-label whitespace-nowrap">{group.count} {group.count === 1 ? 'photo' : 'photos'}</span>
+  </div>
+</a>

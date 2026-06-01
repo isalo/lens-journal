@@ -1,0 +1,33 @@
+---
+import { Image } from 'astro:assets';
+import type { Photo } from '@types';
+import { exposureSummary } from '@lib/format';
+
+interface Props {
+  items: { photo: Photo; slug: string; title: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4">
+  {items.map(({ photo, slug, title }, i) => (
+    <a
+      href={`/entries/${slug}`}
+      class="group relative block break-inside-avoid overflow-hidden rounded-xl bg-paper-soft dark:bg-night-panel"
+    >
+      <Image
+        src={photo.image}
+        alt={title}
+        widths={[400, 700, 1000]}
+        sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+        loading={i < 4 ? 'eager' : 'lazy'}
+        class="w-full transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+      />
+      <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/60 via-black/0 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <p class="font-serif text-sm text-white">{title}</p>
+        <p class="mt-0.5 font-mono text-[0.7rem] text-white/70">{exposureSummary(photo.exif)}</p>
+      </div>
+    </a>
+  ))}
+</div>

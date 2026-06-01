@@ -1,0 +1,25 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  count?: number;
+  countLabel?: string;
+}
+const { title, description, count, countLabel } = Astro.props;
+---
+
+<header class="mb-10 animate-fade-up sm:mb-14">
+  <div class="flex items-end justify-between gap-4">
+    <h1 class="font-serif text-4xl tracking-tightest sm:text-5xl">{title}</h1>
+    {count != null && (
+      <span class="meta-label whitespace-nowrap pb-1.5">
+        {count} {countLabel ?? 'items'}
+      </span>
+    )}
+  </div>
+  {description && (
+    <p class="mt-3 max-w-2xl text-base leading-relaxed text-ink-muted dark:text-paper-soft/60">
+      {description}
+    </p>
+  )}
+</header>

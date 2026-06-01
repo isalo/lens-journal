@@ -1,0 +1,48 @@
+---
+import { SITE, NAV_LINKS } from '@/consts';
+import ThemeToggle from '@components/ui/ThemeToggle.astro';
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) =>
+  href === '/' ? pathname === '/' : pathname.startsWith(href);
+---
+
+<header class="sticky top-0 z-40 border-b border-ink/5 bg-paper/80 backdrop-blur-md dark:border-paper/10 dark:bg-night/80">
+  <div class="container-content flex h-16 items-center justify-between gap-4">
+    <a href="/" class="group flex items-center gap-2 font-serif text-lg tracking-tightest">
+      <span class="inline-block h-2.5 w-2.5 rounded-full bg-accent transition-transform group-hover:scale-125"></span>
+      <span class="font-medium">{SITE.title}</span>
+    </a>
+
+    <nav class="hidden items-center gap-7 sm:flex" aria-label="Primary">
+      {NAV_LINKS.map((link) => (
+        <a
+          href={link.href}
+          class:list={[
+            'link-underline text-sm tracking-tight',
+            isActive(link.href)
+              ? 'text-ink dark:text-paper'
+              : 'text-ink-muted hover:text-ink dark:text-paper-soft/60 dark:hover:text-paper',
+          ]}
+          aria-current={isActive(link.href) ? 'page' : undefined}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-1">
+      <ThemeToggle />
+      <details class="relative sm:hidden">
+        <summary class="flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-full text-ink-soft hover:bg-ink/5 dark:text-paper-soft/80 dark:hover:bg-paper/10">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </summary>
+        <div class="absolute right-0 mt-2 w-44 rounded-xl border border-ink/10 bg-paper p-2 shadow-xl dark:border-paper/10 dark:bg-night-panel">
+          {NAV_LINKS.map((link) => (
+            <a href={link.href} class="block rounded-lg px-3 py-2 text-sm hover:bg-ink/5 dark:hover:bg-paper/10">{link.label}</a>
+          ))}
+        </div>
+      </details>
+    </div>
+  </div>
+</header>

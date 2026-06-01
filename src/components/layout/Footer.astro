@@ -1,0 +1,22 @@
+---
+import { SITE, NAV_LINKS } from '@/consts';
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-24 border-t border-ink/5 dark:border-paper/10">
+  <div class="container-content flex flex-col gap-6 py-10 sm:flex-row sm:items-center sm:justify-between">
+    <div class="max-w-sm">
+      <p class="font-serif text-base text-ink dark:text-paper">{SITE.title}</p>
+      <p class="mt-1 text-sm text-ink-muted dark:text-paper-soft/50">{SITE.tagline}</p>
+    </div>
+    <nav class="flex flex-wrap gap-x-5 gap-y-2 text-sm text-ink-muted dark:text-paper-soft/60" aria-label="Footer">
+      {NAV_LINKS.map((link) => (
+        <a href={link.href} class="link-underline hover:text-ink dark:hover:text-paper">{link.label}</a>
+      ))}
+      <a href="/rss.xml" class="link-underline hover:text-ink dark:hover:text-paper">RSS</a>
+    </nav>
+  </div>
+  <div class="container-content pb-10 text-xs text-ink-muted dark:text-paper-soft/40">
+    <p>&copy; {year} {SITE.author.name}. Built with Astro &middot; local-first &middot; zero database.</p>
+  </div>
+</footer>

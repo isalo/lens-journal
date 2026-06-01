@@ -1,0 +1,33 @@
+---
+import { getMapMarkers } from '@lib/entries';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import WorldMap from '@components/map/WorldMap.astro';
+
+const markers = await getMapMarkers();
+---
+
+<BaseLayout
+  title="World map"
+  description="Every photo location across the journal, on one interactive map."
+  bleed
+>
+  <div class="container-content py-12 sm:py-16">
+    <header class="mb-8 animate-fade-up">
+      <h1 class="font-serif text-4xl tracking-tightest sm:text-5xl">World map</h1>
+      <p class="mt-3 max-w-2xl text-base leading-relaxed text-ink-muted dark:text-paper-soft/60">
+        Photo locations extracted from EXIF GPS data &mdash; {markers.length} mapped {markers.length === 1 ? 'place' : 'places'}.
+      </p>
+    </header>
+  </div>
+
+  {markers.length > 0 ? (
+    <WorldMap markers={markers} />
+  ) : (
+    <div class="container-content">
+      <p class="rounded-2xl border border-ink/8 bg-paper-soft/60 p-8 text-ink-muted dark:border-paper/10 dark:bg-night-panel/60 dark:text-paper-soft/60">
+        No geotagged photographs yet. Add photos with GPS EXIF data, or set
+        <code class="font-mono">coordinates</code> in an entry's frontmatter.
+      </p>
+    </div>
+  )}
+</BaseLayout>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#16161a"/>
+  <circle cx="600" cy="250" r="86" fill="none" stroke="#fbfbf9" stroke-width="6"/>
+  <circle cx="600" cy="250" r="34" fill="#c2410c"/>
+  <circle cx="690" cy="170" r="14" fill="#fbfbf9"/>
+  <text x="600" y="430" fill="#fbfbf9" font-family="Georgia, serif" font-size="72" text-anchor="middle">Lens Journal</text>
+  <text x="600" y="490" fill="#9a9aa3" font-family="Inter, sans-serif" font-size="30" text-anchor="middle">A photo journal of light, places and moments.</text>
+</svg>

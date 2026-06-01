@@ -1,0 +1,52 @@
+---
+import '@styles/global.css';
+import { SITE } from '@/consts';
+import SEO from '@components/SEO.astro';
+import Header from '@components/layout/Header.astro';
+import Footer from '@components/layout/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  publishedAt?: Date;
+  /** Render full-bleed (no container) — used by map / entry hero pages. */
+  bleed?: boolean;
+}
+
+const { title, description, image, type, publishedAt, bleed = false } = Astro.props;
+---
+
+<!doctype html>
+<html lang={SITE.locale} class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content={SITE.themeColor} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    {/* Apply the saved theme before paint to avoid a flash. */}
+    <script is:inline>
+      (() => {
+        try {
+          const stored = localStorage.getItem('theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (stored === 'dark' || (!stored && prefersDark)) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch {}
+      })();
+    </script>
+
+    <SEO {title} {description} {image} {type} {publishedAt} />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <Header />
+    <main class:list={['flex-1', !bleed && 'container-content py-12 sm:py-16']}>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

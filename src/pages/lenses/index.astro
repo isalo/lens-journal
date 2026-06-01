@@ -1,0 +1,30 @@
+---
+import { getLensGroups } from '@lib/entries';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageIntro from '@components/ui/PageIntro.astro';
+import GearCard from '@components/GearCard.astro';
+
+const groups = await getLensGroups();
+---
+
+<BaseLayout
+  title="Lenses"
+  description="Photographs grouped by the lens used to capture them."
+>
+  <PageIntro
+    title="Lenses"
+    description="Browse the journal by lens, detected automatically from EXIF metadata."
+    count={groups.length}
+    countLabel="lenses"
+  />
+
+  {groups.length > 0 ? (
+    <div class="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+      {groups.map((group) => (
+        <GearCard group={group} basePath="/lenses" />
+      ))}
+    </div>
+  ) : (
+    <p class="text-ink-muted dark:text-paper-soft/60">No lens metadata found yet.</p>
+  )}
+</BaseLayout>

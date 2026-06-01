@@ -1,0 +1,59 @@
+---
+import { Image } from 'astro:assets';
+import type { Photo } from '@types';
+
+interface Props {
+  photo: Photo | null;
+  alt: string;
+  /** Tailwind aspect ratio class, e.g. "aspect-[3/2]". Omit to use intrinsic. */
+  ratio?: string;
+  /** Pass through sizes attribute for responsive loading. */
+  sizes?: string;
+  loading?: 'eager' | 'lazy';
+  class?: string;
+  widths?: number[];
+}
+
+const {
+  photo,
+  alt,
+  ratio,
+  sizes = '(min-width: 1024px) 1024px, 100vw',
+  loading = 'lazy',
+  class: className,
+  widths = [480, 800, 1200, 1600],
+} = Astro.props;
+---
+
+<div
+  class:list={[
+    'relative overflow-hidden bg-paper-soft dark:bg-night-panel',
+    ratio,
+    className,
+  ]}
+>
+  {photo ? (
+    <Image
+      src={photo.image}
+      alt={alt}
+      widths={widths}
+      sizes={sizes}
+      loading={loading}
+      class:list={['h-full w-full object-cover', ratio && 'absolute inset-0']}
+    />
+  ) : (
+    <div
+      class:list={[
+        'flex items-center justify-center text-ink-muted/40 dark:text-paper-soft/20',
+        ratio ? 'absolute inset-0' : 'aspect-[3/2]',
+      ]}
+      aria-hidden="true"
+    >
+      <svg class="h-12 w-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+        <rect x="3" y="5" width="18" height="14" rx="2" />
+        <circle cx="12" cy="12" r="3.2" />
+        <path d="M3 17l5-4 3 2 4-3 6 5" />
+      </svg>
+    </div>
+  )}
+</div>
