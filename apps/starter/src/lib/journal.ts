@@ -9,6 +9,7 @@ import {
 } from '@lens-journal/theme';
 
 import type { Entry, GalleryPhoto, GearGroup, MapMarker } from '@types';
+import { withBase } from '@lib/url';
 
 const isProd = import.meta.env.PROD;
 
@@ -17,9 +18,9 @@ export function slugOf(entry: Entry): string {
   return entry.data.slug ?? entry.id;
 }
 
-/** The permalink for an entry. */
+/** The permalink for an entry (base-path aware). */
 export function hrefOf(entry: Entry): string {
-  return `/entries/${slugOf(entry)}`;
+  return withBase(`/entries/${slugOf(entry)}`);
 }
 
 /**
@@ -46,7 +47,12 @@ export async function getGalleryPhotos(): Promise<GalleryPhoto[]> {
           ? [entry.data.coverPhoto]
           : [];
     for (const src of sources) {
-      photos.push({ src, slug, title: entry.data.title });
+      photos.push({
+        src: withBase(src),
+        slug,
+        title: entry.data.title,
+        href: hrefOf(entry),
+      });
     }
   }
   return photos;
@@ -65,7 +71,9 @@ export async function getMapMarkers(): Promise<MapMarker[]> {
       lat: coords.latitude,
       lng: coords.longitude,
       href: hrefOf(entry),
-      thumbnail: entry.data.coverPhoto,
+      thumbnail: entry.data.coverPhoto
+        ? withBase(entry.data.coverPhoto)
+        : undefined,
       location: locationLabel(entry.data),
     });
   }
@@ -105,3 +113,4 @@ export async function getLensGroups(): Promise<GearGroup[]> {
 }
 
 export { cameraLabel, lensLabel, locationLabel, entryCoords, slugify };
+export { withBase };

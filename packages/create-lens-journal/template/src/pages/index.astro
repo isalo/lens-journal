@@ -1,6 +1,6 @@
 ---
 import { SITE } from '@/consts';
-import { getEntries, hrefOf, locationLabel } from '@lib/journal';
+import { getEntries, hrefOf, locationLabel, withBase } from '@lib/journal';
 import { formatDate } from '@lens-journal/core';
 
 import BaseLayout from '@layouts/BaseLayout.astro';
@@ -33,7 +33,7 @@ const [featured, ...rest] = entries;
           <div class="relative overflow-hidden rounded-3xl bg-night">
             {featured.data.coverPhoto ? (
               <img
-                src={featured.data.coverPhoto}
+                src={withBase(featured.data.coverPhoto)}
                 alt={featured.data.title}
                 loading="eager"
                 fetchpriority="high"

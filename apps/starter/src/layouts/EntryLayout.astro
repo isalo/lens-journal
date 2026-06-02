@@ -7,6 +7,7 @@ import {
   locationLabel,
   entryCoords,
   slugify,
+  withBase,
 } from '@lib/journal';
 
 import BaseLayout from '@layouts/BaseLayout.astro';
@@ -47,7 +48,7 @@ const extraPhotos = photos.filter((p) => p !== coverPhoto);
       {
         coverPhoto ? (
           <img
-            src={coverPhoto}
+            src={withBase(coverPhoto)}
             alt={title}
             loading="eager"
             fetchpriority="high"
@@ -108,7 +109,7 @@ const extraPhotos = photos.filter((p) => p !== coverPhoto);
             <div class="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2">
               {extraPhotos.map((src) => (
                 <PhotoFrame
-                  src={src}
+                  src={withBase(src)}
                   alt={title}
                   ratio="aspect-[4/3]"
                   class="rounded-xl"
@@ -146,7 +147,7 @@ const extraPhotos = photos.filter((p) => p !== coverPhoto);
           {
             camera && (
               <a
-                href={`/cameras/${slugify(camera)}`}
+                href={withBase(`/cameras/${slugify(camera)}`)}
                 class="link-underline text-ink-soft dark:text-paper-soft/70"
               >
                 {camera}
@@ -156,7 +157,7 @@ const extraPhotos = photos.filter((p) => p !== coverPhoto);
           {
             lens && (
               <a
-                href={`/lenses/${slugify(lens)}`}
+                href={withBase(`/lenses/${slugify(lens)}`)}
                 class="link-underline text-ink-soft dark:text-paper-soft/70"
               >
                 {lens}
@@ -169,7 +170,7 @@ const extraPhotos = photos.filter((p) => p !== coverPhoto);
 
     <div class="mt-16 border-t border-ink/8 pt-6 dark:border-paper/10">
       <a
-        href="/"
+        href={withBase('/')}
         class="link-underline text-sm text-ink-muted dark:text-paper-soft/60"
         >&larr; Back to journal</a
       >

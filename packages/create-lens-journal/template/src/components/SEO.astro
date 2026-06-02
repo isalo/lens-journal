@@ -1,5 +1,6 @@
 ---
 import { SITE } from '@/consts';
+import { withBase } from '@lib/url';
 
 interface Props {
   title?: string;
@@ -22,7 +23,7 @@ const pageTitle = title
   ? `${title} \u00b7 ${SITE.title}`
   : `${SITE.title} \u2014 ${SITE.tagline}`;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
-const ogImage = new URL(image, Astro.site ?? SITE.url).href;
+const ogImage = new URL(withBase(image), Astro.site ?? SITE.url).href;
 ---
 
 <title>{pageTitle}</title>
@@ -54,5 +55,5 @@ const ogImage = new URL(image, Astro.site ?? SITE.url).href;
   rel="alternate"
   type="application/rss+xml"
   title={SITE.title}
-  href={new URL('/rss.xml', Astro.site ?? SITE.url).href}
+  href={new URL(withBase('/rss.xml'), Astro.site ?? SITE.url).href}
 />

@@ -25,6 +25,7 @@ export interface GalleryPhoto {
   src: string;
   slug: string;
   title: string;
+  href: string;
 }
 
 /** Entries grouped by a piece of gear (camera or lens). */

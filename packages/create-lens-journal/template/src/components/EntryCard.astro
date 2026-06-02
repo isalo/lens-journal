@@ -1,7 +1,7 @@
 ---
 import type { Entry } from '@types';
 import { formatDate } from '@lens-journal/core';
-import { hrefOf, locationLabel } from '@lib/journal';
+import { hrefOf, locationLabel, withBase } from '@lib/journal';
 
 interface Props {
   entry: Entry;
@@ -17,7 +17,7 @@ const place = locationLabel(entry.data);
     {
       coverPhoto ? (
         <img
-          src={coverPhoto}
+          src={withBase(coverPhoto)}
           alt={title}
           loading="lazy"
           decoding="async"

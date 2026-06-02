@@ -1,5 +1,6 @@
 ---
 import { SITE, NAV_LINKS } from '@/consts';
+import { withBase } from '@lib/url';
 const year = new Date().getFullYear();
 ---
 
@@ -20,7 +21,7 @@ const year = new Date().getFullYear();
       {
         NAV_LINKS.map((link) => (
           <a
-            href={link.href}
+            href={withBase(link.href)}
             class="link-underline hover:text-ink dark:hover:text-paper"
           >
             {link.label}
@@ -28,7 +29,7 @@ const year = new Date().getFullYear();
         ))
       }
       <a
-        href="/rss.xml"
+        href={withBase('/rss.xml')}
         class="link-underline hover:text-ink dark:hover:text-paper">RSS</a
       >
     </nav>

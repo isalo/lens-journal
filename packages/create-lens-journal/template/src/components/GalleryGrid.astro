@@ -12,7 +12,7 @@ const { photos } = Astro.props;
   {
     photos.map((photo) => (
       <a
-        href={`/entries/${photo.slug}`}
+        href={photo.href}
         class="group block break-inside-avoid overflow-hidden rounded-xl bg-night"
       >
         <img

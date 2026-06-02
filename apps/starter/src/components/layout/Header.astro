@@ -1,10 +1,14 @@
 ---
 import { SITE, NAV_LINKS } from '@/consts';
+import { withBase } from '@lib/url';
 import ThemeToggle from '@components/ui/ThemeToggle.astro';
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
-const isActive = (href: string) =>
-  href === '/' ? pathname === '/' : pathname.startsWith(href);
+const home = withBase('/').replace(/\/$/, '') || '/';
+const isActive = (href: string) => {
+  const target = withBase(href).replace(/\/$/, '') || '/';
+  return href === '/' ? pathname === home : pathname.startsWith(target);
+};
 ---
 
 <header
@@ -12,7 +16,7 @@ const isActive = (href: string) =>
 >
   <div class="container-content flex h-16 items-center justify-between gap-4">
     <a
-      href="/"
+      href={withBase('/')}
       class="group flex items-center gap-2 font-serif text-lg tracking-tightest"
     >
       <span
@@ -25,7 +29,7 @@ const isActive = (href: string) =>
       {
         NAV_LINKS.map((link) => (
           <a
-            href={link.href}
+            href={withBase(link.href)}
             class:list={[
               'link-underline text-sm tracking-tight',
               isActive(link.href)
@@ -62,7 +66,7 @@ const isActive = (href: string) =>
           {
             NAV_LINKS.map((link) => (
               <a
-                href={link.href}
+                href={withBase(link.href)}
                 class="block rounded-lg px-3 py-2 text-sm hover:bg-ink/5 dark:hover:bg-paper/10"
               >
                 {link.label}

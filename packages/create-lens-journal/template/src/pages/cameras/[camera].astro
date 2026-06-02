@@ -1,5 +1,5 @@
 ---
-import { getCameraGroups } from '@lib/journal';
+import { getCameraGroups, withBase } from '@lib/journal';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageIntro from '@components/ui/PageIntro.astro';
 import EntryCard from '@components/EntryCard.astro';
@@ -30,7 +30,7 @@ const { group } = Astro.props;
   </div>
   <div class="mt-12 border-t border-ink/8 pt-6 dark:border-paper/10">
     <a
-      href="/cameras"
+      href={withBase('/cameras')}
       class="link-underline text-sm text-ink-muted dark:text-paper-soft/60"
       >&larr; All cameras</a
     >
