@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@lens-journal/starter", "@lens-journal/demo-journal"]
+  "ignore": ["@lens-journal/starter"]
 }
