@@ -1,0 +1,27 @@
+---
+import { getMapMarkers } from '@lib/journal';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import WorldMap from '@components/map/WorldMap.astro';
+
+const markers = await getMapMarkers();
+---
+
+<BaseLayout
+  title="Map"
+  description="Where the photographs were made."
+  bleed
+>
+  <section class="container-content pt-10 sm:pt-14">
+    <div class="mb-6 flex items-end justify-between">
+      <h1 class="font-serif text-4xl tracking-tightest sm:text-5xl">Map</h1>
+      <span class="meta-label pb-1.5">{markers.length} locations</span>
+    </div>
+  </section>
+  {markers.length > 0 ? (
+    <WorldMap markers={markers} class="border-y border-ink/8 dark:border-paper/10" />
+  ) : (
+    <p class="container-content text-ink-muted dark:text-paper-soft/60">
+      No geotagged entries yet. Photos with GPS EXIF appear here automatically.
+    </p>
+  )}
+</BaseLayout>

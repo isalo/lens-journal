@@ -1,0 +1,33 @@
+---
+import { getCameraGroups } from '@lib/journal';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageIntro from '@components/ui/PageIntro.astro';
+import EntryCard from '@components/EntryCard.astro';
+
+export async function getStaticPaths() {
+  const groups = await getCameraGroups();
+  return groups.map((group) => ({
+    params: { camera: group.slug },
+    props: { group },
+  }));
+}
+
+const { group } = Astro.props;
+---
+
+<BaseLayout title={group.label} description={`Photographs made with the ${group.label}.`}>
+  <PageIntro
+    title={group.label}
+    description="Photographs made with this camera."
+    count={group.count}
+    countLabel="entries"
+  />
+  <div class="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+    {group.entries.map((entry) => (
+      <EntryCard entry={entry} />
+    ))}
+  </div>
+  <div class="mt-12 border-t border-ink/8 pt-6 dark:border-paper/10">
+    <a href="/cameras" class="link-underline text-sm text-ink-muted dark:text-paper-soft/60">&larr; All cameras</a>
+  </div>
+</BaseLayout>

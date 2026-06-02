@@ -1,0 +1,43 @@
+---
+import type { Entry } from '@types';
+import { formatDate } from '@lens-journal/core';
+import { hrefOf, locationLabel } from '@lib/journal';
+
+interface Props {
+  entry: Entry;
+}
+
+const { entry } = Astro.props;
+const { title, date, coverPhoto, excerpt } = entry.data;
+const place = locationLabel(entry.data);
+---
+
+<a href={hrefOf(entry)} class="group block">
+  <div class="overflow-hidden rounded-2xl bg-night">
+    {coverPhoto ? (
+      <img
+        src={coverPhoto}
+        alt={title}
+        loading="lazy"
+        decoding="async"
+        class="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+      />
+    ) : (
+      <div class="aspect-[4/3] w-full"></div>
+    )}
+  </div>
+  <div class="mt-4">
+    <div class="flex items-center gap-2 text-ink-muted dark:text-paper-soft/50">
+      <time datetime={date.toISOString()} class="meta-label">{formatDate(date)}</time>
+      {place && <span class="meta-label">&middot; {place}</span>}
+    </div>
+    <h3 class="mt-1.5 font-serif text-xl leading-snug tracking-tight text-ink transition-colors group-hover:text-accent dark:text-paper">
+      {title}
+    </h3>
+    {excerpt && (
+      <p class="mt-1 line-clamp-2 text-sm leading-relaxed text-ink-muted dark:text-paper-soft/60">
+        {excerpt}
+      </p>
+    )}
+  </div>
+</a>

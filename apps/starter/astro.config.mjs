@@ -25,9 +25,4 @@ export default defineConfig({
     // Sharp is the default image service; tune defaults here.
     responsiveStyles: true,
   },
-  vite: {
-    optimizeDeps: {
-      exclude: ['exifr'],
-    },
-  },
 });

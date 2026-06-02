@@ -1,0 +1,73 @@
+---
+import { MAP } from '@/consts';
+
+interface Props {
+  lat: number;
+  lng: number;
+  label?: string;
+  zoom?: number;
+  class?: string;
+}
+
+const { lat, lng, label, zoom = MAP.defaultZoom, class: className } = Astro.props;
+const fallbackLabel = `${lat.toFixed(3)}, ${lng.toFixed(3)}`;
+---
+
+<figure class:list={['overflow-hidden rounded-2xl border border-ink/8 dark:border-paper/10', className]}>
+  <div
+    class="lens-map h-72 w-full"
+    data-lat={lat}
+    data-lng={lng}
+    data-zoom={zoom}
+    role="img"
+    aria-label={`Map showing ${label ?? fallbackLabel}`}
+  >
+  </div>
+  <figcaption class="flex items-center gap-2 border-t border-ink/8 px-4 py-2.5 text-sm text-ink-soft dark:border-paper/10 dark:text-paper-soft/70">
+    <svg class="h-4 w-4 shrink-0 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+    <span>{label ?? fallbackLabel}</span>
+  </figcaption>
+</figure>
+
+<script>
+  import maplibregl from 'maplibre-gl';
+  import 'maplibre-gl/dist/maplibre-gl.css';
+  import { MAP } from '@/consts';
+
+  const rasterStyle = {
+    version: 8 as const,
+    sources: {
+      osm: {
+        type: 'raster' as const,
+        tiles: MAP.tiles as unknown as string[],
+        tileSize: 256,
+        attribution: MAP.attribution,
+      },
+    },
+    layers: [{ id: 'osm', type: 'raster' as const, source: 'osm' }],
+  };
+
+  document.querySelectorAll<HTMLElement>('.lens-map[data-lat]').forEach((el) => {
+    if (el.dataset.initialized) return;
+    el.dataset.initialized = 'true';
+    const lat = Number(el.dataset.lat);
+    const lng = Number(el.dataset.lng);
+    const zoom = Number(el.dataset.zoom) || MAP.defaultZoom;
+
+    const map = new maplibregl.Map({
+      container: el,
+      style: rasterStyle,
+      center: [lng, lat],
+      zoom,
+      maxZoom: MAP.maxZoom,
+      attributionControl: { compact: true },
+      cooperativeGestures: true,
+    });
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+
+    const marker = document.createElement('div');
+    marker.style.cssText =
+      'width:16px;height:16px;border-radius:9999px;background:#c2410c;border:3px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.4);';
+    new maplibregl.Marker({ element: marker }).setLngLat([lng, lat]).addTo(map);
+  });
+</script>

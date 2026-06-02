@@ -1,0 +1,26 @@
+---
+import { getCameraGroups } from '@lib/journal';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageIntro from '@components/ui/PageIntro.astro';
+import GearCard from '@components/GearCard.astro';
+
+const groups = await getCameraGroups();
+---
+
+<BaseLayout title="Cameras" description="Browse the journal by the camera each photo was made with.">
+  <PageIntro
+    title="Cameras"
+    description="Browse the journal by the camera each photo was made with."
+    count={groups.length}
+    countLabel="cameras"
+  />
+  {groups.length > 0 ? (
+    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {groups.map((group) => (
+        <GearCard group={group} base="cameras" />
+      ))}
+    </div>
+  ) : (
+    <p class="text-ink-muted dark:text-paper-soft/60">No camera data yet.</p>
+  )}
+</BaseLayout>

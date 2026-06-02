@@ -1,0 +1,38 @@
+---
+interface Props {
+  src?: string;
+  alt: string;
+  ratio?: string;
+  caption?: string;
+  eager?: boolean;
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  ratio = 'aspect-[4/3]',
+  caption,
+  eager = false,
+  class: className,
+} = Astro.props;
+---
+
+<figure class:list={['overflow-hidden', className]}>
+  {src ? (
+    <img
+      src={src}
+      alt={alt}
+      loading={eager ? 'eager' : 'lazy'}
+      decoding="async"
+      class:list={[ratio, 'w-full bg-night object-cover']}
+    />
+  ) : (
+    <div class:list={[ratio, 'w-full bg-ink/5 dark:bg-paper/5']}></div>
+  )}
+  {caption && (
+    <figcaption class="mt-2 text-sm text-ink-muted dark:text-paper-soft/60">
+      {caption}
+    </figcaption>
+  )}
+</figure>

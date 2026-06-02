@@ -1,0 +1,117 @@
+---
+import type { Entry } from '@types';
+import { formatDate } from '@lens-journal/core';
+import {
+  cameraLabel,
+  lensLabel,
+  locationLabel,
+  entryCoords,
+  slugify,
+} from '@lib/journal';
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import MetadataPanel from '@components/photo/MetadataPanel.astro';
+import ExifBadge from '@components/photo/ExifBadge.astro';
+import LocationMap from '@components/map/LocationMap.astro';
+import PhotoFrame from '@components/photo/PhotoFrame.astro';
+
+interface Props {
+  entry: Entry;
+}
+
+const { entry } = Astro.props;
+const fm = entry.data;
+const { title, date, excerpt, coverPhoto, photos, tags } = fm;
+
+const camera = cameraLabel(fm);
+const lens = lensLabel(fm);
+const place = locationLabel(fm);
+const coords = entryCoords(fm);
+
+// Additional photos beyond the cover, shown as an inline grid.
+const extraPhotos = photos.filter((p) => p !== coverPhoto);
+---
+
+<BaseLayout
+  title={title}
+  description={excerpt}
+  image={coverPhoto}
+  type="article"
+  publishedAt={date}
+  bleed
+>
+  <section class="relative">
+    <div class="relative h-[58vh] min-h-[360px] w-full overflow-hidden bg-night">
+      {coverPhoto ? (
+        <img src={coverPhoto} alt={title} loading="eager" fetchpriority="high" class="h-full w-full object-cover" />
+      ) : (
+        <div class="h-full w-full"></div>
+      )}
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/20"></div>
+      <div class="absolute inset-x-0 bottom-0">
+        <div class="container-content pb-10 sm:pb-14">
+          <div class="flex flex-wrap items-center gap-3 text-white/80">
+            <time datetime={date.toISOString()} class="text-sm font-medium uppercase tracking-[0.14em]">
+              {formatDate(date)}
+            </time>
+            {place && <span class="text-sm text-white/70">&middot; {place}</span>}
+          </div>
+          <h1 class="mt-2 max-w-3xl font-serif text-4xl text-white drop-shadow-sm sm:text-6xl sm:tracking-tightest">
+            {title}
+          </h1>
+          <div class="mt-4"><ExifBadge exif={fm.exif} /></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container-content py-12 sm:py-16">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <article class="min-w-0">
+        {excerpt && (
+          <p class="mb-8 font-serif text-xl leading-relaxed text-ink-soft dark:text-paper-soft/80">
+            {excerpt}
+          </p>
+        )}
+        <div class="prose prose-lg max-w-none dark:prose-invert prose-img:rounded-xl">
+          <slot />
+        </div>
+
+        {extraPhotos.length > 0 && (
+          <div class="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {extraPhotos.map((src) => (
+              <PhotoFrame src={src} alt={title} ratio="aspect-[4/3]" class="rounded-xl" />
+            ))}
+          </div>
+        )}
+
+        {tags.length > 0 && (
+          <div class="mt-10 flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <span class="rounded-full bg-ink/5 px-3 py-1 text-xs text-ink-soft dark:bg-paper/10 dark:text-paper-soft/70">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </article>
+
+      <aside class="space-y-6 lg:sticky lg:top-24 lg:self-start">
+        <MetadataPanel frontmatter={fm} location={place} />
+        {coords && <LocationMap lat={coords.latitude} lng={coords.longitude} label={place} />}
+        <div class="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+          {camera && (
+            <a href={`/cameras/${slugify(camera)}`} class="link-underline text-ink-soft dark:text-paper-soft/70">{camera}</a>
+          )}
+          {lens && (
+            <a href={`/lenses/${slugify(lens)}`} class="link-underline text-ink-soft dark:text-paper-soft/70">{lens}</a>
+          )}
+        </div>
+      </aside>
+    </div>
+
+    <div class="mt-16 border-t border-ink/8 pt-6 dark:border-paper/10">
+      <a href="/" class="link-underline text-sm text-ink-muted dark:text-paper-soft/60">&larr; Back to journal</a>
+    </div>
+  </div>
+</BaseLayout>

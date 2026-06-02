@@ -1,0 +1,29 @@
+---
+import type { JournalEntryFrontmatter } from '@types';
+
+interface Props {
+  exif?: JournalEntryFrontmatter['exif'];
+  class?: string;
+}
+
+const { exif, class: className } = Astro.props;
+
+const chips = exif
+  ? [
+      exif.focalLength,
+      exif.aperture,
+      exif.shutterSpeed,
+      exif.iso != null ? `ISO ${exif.iso}` : undefined,
+    ].filter(Boolean)
+  : [];
+---
+
+{chips.length > 0 && (
+  <ul class:list={['flex flex-wrap items-center gap-x-3 gap-y-1', className]}>
+    {chips.map((chip) => (
+      <li class="rounded-md bg-white/10 px-2 py-0.5 font-mono text-xs tracking-tight text-white/90 backdrop-blur-sm">
+        {chip}
+      </li>
+    ))}
+  </ul>
+)}

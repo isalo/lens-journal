@@ -38,6 +38,3 @@ export const MAP = {
   worldZoom: 1.4,
   maxZoom: 18,
 } as const;
-
-/** Directory (relative to project root) that holds original photographs. */
-export const PHOTOS_DIR = 'src/assets/photos';

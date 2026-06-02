@@ -1,0 +1,37 @@
+---
+import type { JournalEntryFrontmatter } from '@types';
+import { cameraLabel, lensLabel } from '@lens-journal/theme';
+
+interface Props {
+  frontmatter: JournalEntryFrontmatter;
+  location?: string;
+}
+
+const { frontmatter, location } = Astro.props;
+const exif = frontmatter.exif;
+const camera = cameraLabel(frontmatter);
+const lens = lensLabel(frontmatter);
+
+const rows: { label: string; value: string }[] = [];
+if (camera) rows.push({ label: 'Camera', value: camera });
+if (lens) rows.push({ label: 'Lens', value: lens });
+if (exif?.focalLength) rows.push({ label: 'Focal length', value: exif.focalLength });
+if (exif?.aperture) rows.push({ label: 'Aperture', value: exif.aperture });
+if (exif?.shutterSpeed) rows.push({ label: 'Shutter', value: exif.shutterSpeed });
+if (exif?.iso != null) rows.push({ label: 'ISO', value: String(exif.iso) });
+if (location) rows.push({ label: 'Location', value: location });
+---
+
+{rows.length > 0 && (
+  <dl class="rounded-2xl border border-ink/8 p-5 dark:border-paper/10">
+    <p class="meta-label mb-3">Capture details</p>
+    <div class="space-y-2.5">
+      {rows.map((row) => (
+        <div class="flex items-baseline justify-between gap-4 text-sm">
+          <dt class="shrink-0 text-ink-muted dark:text-paper-soft/50">{row.label}</dt>
+          <dd class="text-right font-mono text-ink-soft dark:text-paper-soft/80">{row.value}</dd>
+        </div>
+      ))}
+    </div>
+  </dl>
+)}

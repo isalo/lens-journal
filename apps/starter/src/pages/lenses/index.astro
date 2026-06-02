@@ -1,0 +1,26 @@
+---
+import { getLensGroups } from '@lib/journal';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageIntro from '@components/ui/PageIntro.astro';
+import GearCard from '@components/GearCard.astro';
+
+const groups = await getLensGroups();
+---
+
+<BaseLayout title="Lenses" description="Browse the journal by the lens each photo was made with.">
+  <PageIntro
+    title="Lenses"
+    description="Browse the journal by the lens each photo was made with."
+    count={groups.length}
+    countLabel="lenses"
+  />
+  {groups.length > 0 ? (
+    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {groups.map((group) => (
+        <GearCard group={group} base="lenses" />
+      ))}
+    </div>
+  ) : (
+    <p class="text-ink-muted dark:text-paper-soft/60">No lens data yet.</p>
+  )}
+</BaseLayout>

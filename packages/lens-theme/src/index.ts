@@ -17,6 +17,9 @@ import { hasValidLocation } from '@lens-journal/core';
 
 export {
   journalEntrySchema,
+  slugify,
+  hasValidLocation,
+  formatDate,
   type JournalEntryFrontmatter,
   type GPS,
   type EntryStatus,

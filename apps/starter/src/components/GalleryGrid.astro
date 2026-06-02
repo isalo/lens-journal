@@ -1,0 +1,23 @@
+---
+import type { GalleryPhoto } from '@types';
+
+interface Props {
+  photos: GalleryPhoto[];
+}
+
+const { photos } = Astro.props;
+---
+
+<div class="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4">
+  {photos.map((photo) => (
+    <a href={`/entries/${photo.slug}`} class="group block break-inside-avoid overflow-hidden rounded-xl bg-night">
+      <img
+        src={photo.src}
+        alt={photo.title}
+        loading="lazy"
+        decoding="async"
+        class="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+      />
+    </a>
+  ))}
+</div>

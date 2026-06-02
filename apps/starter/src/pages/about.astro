@@ -1,0 +1,24 @@
+---
+import { SITE } from '@/consts';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageIntro from '@components/ui/PageIntro.astro';
+---
+
+<BaseLayout title="About" description={`About ${SITE.title}`}>
+  <PageIntro title="About" />
+  <div class="prose prose-lg max-w-prose dark:prose-invert">
+    <p>
+      {SITE.title} is a photo journal built with <strong>Lens Journal</strong> — a
+      local-first toolkit that turns a folder of photographs into a beautiful,
+      database-free static website.
+    </p>
+    <p>
+      Each entry begins as a photo. The <code>lens</code> CLI reads its EXIF
+      metadata — camera, lens, exposure, and GPS — and writes an MDX entry you
+      can edit. Everything lives in plain files under version control.
+    </p>
+    <p>
+      Replace this page, edit <code>src/consts.ts</code>, and make it yours.
+    </p>
+  </div>
+</BaseLayout>
