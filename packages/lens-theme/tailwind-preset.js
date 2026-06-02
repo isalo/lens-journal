@@ -23,7 +23,12 @@ export default {
       fontFamily: {
         sans: ['"Inter Variable"', 'Inter', 'system-ui', 'sans-serif'],
         serif: ['"Newsreader"', 'Georgia', 'serif'],
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        mono: [
+          '"JetBrains Mono"',
+          'ui-monospace',
+          'SFMono-Regular',
+          'monospace',
+        ],
       },
       letterSpacing: { tightest: '-0.04em' },
       maxWidth: { prose: '68ch', content: '1200px' },

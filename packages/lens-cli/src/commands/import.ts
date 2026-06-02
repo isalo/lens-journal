@@ -62,9 +62,13 @@ export async function importCommand(
     }
     log.success(`Created ${pc.bold(String(result.entries.length))} entries`);
     for (const entry of result.entries) {
-      log.dim(`  ${entry.slug} (${entry.photoCount} photo${entry.photoCount === 1 ? '' : 's'})`);
+      log.dim(
+        `  ${entry.slug} (${entry.photoCount} photo${entry.photoCount === 1 ? '' : 's'})`,
+      );
     }
-    log.info(`\nNext: run ${pc.bold('lens validate')} then ${pc.bold('lens dev')}.`);
+    log.info(
+      `\nNext: run ${pc.bold('lens validate')} then ${pc.bold('lens dev')}.`,
+    );
   } catch (err) {
     spinner.stop();
     log.error((err as Error).message);

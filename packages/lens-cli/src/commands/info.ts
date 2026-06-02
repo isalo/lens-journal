@@ -1,8 +1,4 @@
-import {
-  findImages,
-  loadEntries,
-  loadPhotoCache,
-} from '@lens-journal/core';
+import { findImages, loadEntries, loadPhotoCache } from '@lens-journal/core';
 
 import { createContext, type GlobalOptions } from '../context.js';
 import { log, pc, title } from '../logger.js';
@@ -57,7 +53,9 @@ export async function infoCommand(options: GlobalOptions): Promise<void> {
   log.step('Project');
   console.log(`  ${pc.cyan('entries'.padEnd(24))} ${entries.length}`);
   console.log(`  ${pc.cyan('published'.padEnd(24))} ${published}`);
-  console.log(`  ${pc.cyan('drafts'.padEnd(24))} ${entries.length - published}`);
+  console.log(
+    `  ${pc.cyan('drafts'.padEnd(24))} ${entries.length - published}`,
+  );
   console.log(`  ${pc.cyan('photos on disk'.padEnd(24))} ${photoFiles.length}`);
   console.log(
     `  ${pc.cyan('photos cached'.padEnd(24))} ${Object.keys(cache.photos).length}`,

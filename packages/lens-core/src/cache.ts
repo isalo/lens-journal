@@ -55,10 +55,7 @@ export function isDuplicate(cache: PhotoCache, hash: string): boolean {
 }
 
 /** Add or replace a cache record (mutates and returns the cache). */
-export function addToCache(
-  cache: PhotoCache,
-  record: CachedPhoto,
-): PhotoCache {
+export function addToCache(cache: PhotoCache, record: CachedPhoto): PhotoCache {
   cache.photos[record.hash] = record;
   return cache;
 }

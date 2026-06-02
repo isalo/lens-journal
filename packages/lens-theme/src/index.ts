@@ -9,10 +9,7 @@
  *   - `@lens-journal/theme/tailwind-preset`
  *   - `@lens-journal/theme/styles/global.css`
  */
-import type {
-  GPS,
-  JournalEntryFrontmatter,
-} from '@lens-journal/core';
+import type { GPS, JournalEntryFrontmatter } from '@lens-journal/core';
 import { hasValidLocation } from '@lens-journal/core';
 
 export {
@@ -62,9 +59,7 @@ export function lensLabel(fm: JournalEntryFrontmatter): string | undefined {
 }
 
 /** The effective place name for an entry (location.name when present). */
-export function locationLabel(
-  fm: JournalEntryFrontmatter,
-): string | undefined {
+export function locationLabel(fm: JournalEntryFrontmatter): string | undefined {
   return fm.location?.name;
 }
 
@@ -74,9 +69,6 @@ export function entryCoords(fm: JournalEntryFrontmatter): GPS | undefined {
 }
 
 /** Sort comparator: newest entries first. */
-export function byNewest(
-  a: { date: Date },
-  b: { date: Date },
-): number {
+export function byNewest(a: { date: Date }, b: { date: Date }): number {
   return b.date.getTime() - a.date.getTime();
 }

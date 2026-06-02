@@ -1,10 +1,6 @@
 import path from 'node:path';
 
-import type {
-  Diagnostic,
-  JournalEntry,
-  ResolvedLensConfig,
-} from './types.js';
+import type { Diagnostic, JournalEntry, ResolvedLensConfig } from './types.js';
 import { SUPPORTED_IMAGE_EXTENSIONS } from './types.js';
 import { loadEntries } from './parse.js';
 import { pathExists } from './fs.js';
@@ -29,7 +25,7 @@ function isSupportedExt(p: string): boolean {
   return (SUPPORTED_IMAGE_EXTENSIONS as readonly string[]).includes(ext);
 }
 
-const STRIP_MDX_RE = /(^---[\s\S]*?---)|(<[^>]+>)|[#>*_`~\-!\[\]()]/g;
+const STRIP_MDX_RE = /(^---[\s\S]*?---)|(<[^>]+>)|[#>*_`~\-![\]()]/g;
 
 /** Validate a single already-parsed entry, collecting diagnostics. */
 export async function validateEntry(
@@ -162,9 +158,7 @@ export async function validateProject(
 
   const seenSlugs = new Map<string, string>();
   for (const entry of entries) {
-    diagnostics.push(
-      ...(await validateEntry(cwd, config, entry, seenSlugs)),
-    );
+    diagnostics.push(...(await validateEntry(cwd, config, entry, seenSlugs)));
   }
 
   const errorCount = diagnostics.filter((d) => d.level === 'error').length;

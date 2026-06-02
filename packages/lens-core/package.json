@@ -4,7 +4,13 @@
   "description": "Shared logic for Lens Journal: EXIF extraction, photo hashing, slug + MDX generation, config loading and content validation.",
   "license": "MIT",
   "type": "module",
-  "keywords": ["lens-journal", "exif", "mdx", "photography", "astro"],
+  "keywords": [
+    "lens-journal",
+    "exif",
+    "mdx",
+    "photography",
+    "astro"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/lens-journal/lens-journal.git",
@@ -20,7 +26,9 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

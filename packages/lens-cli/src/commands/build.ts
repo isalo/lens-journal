@@ -21,7 +21,9 @@ export async function buildCommand(options: BuildOptions): Promise<void> {
   if (!options.skipValidate) {
     const ok = await validateCommand({ ...options, quiet: true });
     if (!ok) {
-      log.error('Validation failed — fix the errors above or pass --skip-validate.');
+      log.error(
+        'Validation failed — fix the errors above or pass --skip-validate.',
+      );
       process.exitCode = 1;
       return;
     }

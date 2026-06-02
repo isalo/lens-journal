@@ -4,7 +4,13 @@
   "description": "Shared Lens Journal theme: Tailwind preset, base styles and framework-agnostic view-model helpers for the Astro photo journal.",
   "license": "MIT",
   "type": "module",
-  "keywords": ["lens-journal", "astro", "tailwind", "theme", "photography"],
+  "keywords": [
+    "lens-journal",
+    "astro",
+    "tailwind",
+    "theme",
+    "photography"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/lens-journal/lens-journal.git",
@@ -22,7 +28,11 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist", "tailwind-preset.js", "styles"],
+  "files": [
+    "dist",
+    "tailwind-preset.js",
+    "styles"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

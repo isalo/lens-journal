@@ -4,7 +4,13 @@
   "description": "The `lens` command — import EXIF-aware photos and manage your Lens Journal from the terminal.",
   "license": "MIT",
   "type": "module",
-  "keywords": ["lens-journal", "cli", "photography", "exif", "astro"],
+  "keywords": [
+    "lens-journal",
+    "cli",
+    "photography",
+    "exif",
+    "astro"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/lens-journal/lens-journal.git",
@@ -13,7 +19,9 @@
   "bin": {
     "lens": "dist/index.js"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

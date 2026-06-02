@@ -1,0 +1,45 @@
+{
+  "name": "create-lens-journal",
+  "version": "0.1.0",
+  "description": "Scaffold a new Lens Journal photo-journal site in seconds.",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "lens-journal",
+    "create",
+    "astro",
+    "photography",
+    "scaffold"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lens-journal/lens-journal.git",
+    "directory": "packages/create-lens-journal"
+  },
+  "bin": {
+    "create-lens-journal": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "template"
+  ],
+  "scripts": {
+    "build": "node scripts/sync-template.mjs && tsup",
+    "dev": "tsup --watch",
+    "sync-template": "node scripts/sync-template.mjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vitest run --passWithNoTests",
+    "clean": "rimraf dist .turbo template"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.8.2",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

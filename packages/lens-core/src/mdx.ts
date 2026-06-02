@@ -1,10 +1,6 @@
 import { stringify as stringifyYaml } from 'yaml';
 
-import type {
-  EntryStatus,
-  JournalEntryInput,
-  PhotoMetadata,
-} from './types.js';
+import type { EntryStatus, JournalEntryInput, PhotoMetadata } from './types.js';
 import { generateSlug, toIsoDate } from './slug.js';
 import { buildCameraLabel } from './exif.js';
 import { formatAperture, formatFocalLength, formatShutter } from './format.js';

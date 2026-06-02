@@ -14,7 +14,10 @@ describe('resolveConfig', () => {
   });
 
   it('merges user overrides', () => {
-    const config = resolveConfig({ timezone: 'Europe/Warsaw', imageQuality: 92 });
+    const config = resolveConfig({
+      timezone: 'Europe/Warsaw',
+      imageQuality: 92,
+    });
     expect(config.timezone).toBe('Europe/Warsaw');
     expect(config.imageQuality).toBe(92);
   });

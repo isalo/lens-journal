@@ -30,7 +30,10 @@ function slugFromPath(contentDir: string, filePath: string): string {
   const base = path.basename(rel, path.extname(rel));
   // Folder-style entries (slug/index.mdx) use the folder name.
   if (base === 'index' && dir !== '.') return dir.split(path.sep).join('/');
-  return rel.replace(/\.[^.]+$/, '').split(path.sep).join('/');
+  return rel
+    .replace(/\.[^.]+$/, '')
+    .split(path.sep)
+    .join('/');
 }
 
 /** Parse and validate a single entry file. */

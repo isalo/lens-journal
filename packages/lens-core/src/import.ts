@@ -59,7 +59,11 @@ export interface ImportResult {
   errorCount: number;
 }
 
-function groupKey(photo: PhotoMetadata, groupBy: GroupBy, index: number): string {
+function groupKey(
+  photo: PhotoMetadata,
+  groupBy: GroupBy,
+  index: number,
+): string {
   if (groupBy === 'date') {
     return toIsoDate(photo.capturedAt ?? new Date());
   }
@@ -188,11 +192,11 @@ export async function importPhotos(
       options.slug ??
       (groupBy === 'location' && cover.locationName
         ? `${toIsoDate(cover.capturedAt ?? new Date())}-${slugify(cover.locationName)}`
-        : baseEntry.slug ??
+        : (baseEntry.slug ??
           generateSlug(
             cover.capturedAt ?? new Date(),
             path.basename(cover.publicPath),
-          ));
+          )));
     const slug = uniqueSlug(desiredSlug, usedSlugs);
     usedSlugs.add(slug);
     baseEntry.slug = slug;
