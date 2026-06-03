@@ -1,6 +1,6 @@
 {
   "name": "@lens-journal/core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Shared logic for Lens Journal: EXIF extraction, photo hashing, slug + MDX generation, config loading and content validation.",
   "license": "MIT",
   "type": "module",
