@@ -1,6 +1,6 @@
 {
   "name": "lens-cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The `lens` command — import EXIF-aware photos and manage your Lens Journal from the terminal.",
   "license": "MIT",
   "type": "module",

@@ -1,6 +1,6 @@
 {
   "name": "create-lens-journal",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Scaffold a new Lens Journal photo-journal site in seconds.",
   "license": "MIT",
   "type": "module",

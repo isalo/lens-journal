@@ -1,6 +1,6 @@
 {
   "name": "@lens-journal/theme",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Shared Lens Journal theme: Tailwind preset, base styles and framework-agnostic view-model helpers for the Astro photo journal.",
   "license": "MIT",
   "type": "module",
